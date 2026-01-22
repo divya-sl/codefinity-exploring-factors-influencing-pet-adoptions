@@ -91,17 +91,16 @@ print(f"Pet Type with highest adoption rate : {adoption_rates_pet_type.sort_valu
 adoption_rates_vaccination = df.groupby('Vaccinated')['AdoptionLikelihood'].mean()
 print(f"Does vaccination status affect adoption rates : {adoption_rates_vaccination.loc[0] < adoption_rates_vaccination.loc[1]}")
 
-adoption_rates_TimeInShelterDays = df.groupby('AdoptionLikelihood')['TimeInShelterDays'].mean()
-print("Adoption rates by TimeInShelterDays:")
-print({
-    "Mean Time In Shelter Average for unlikely adopted": round(adoption_rates_TimeInShelterDays.loc[0], 3),
-    "Mean Time In Shelter Average for likely adopted": round(adoption_rates_TimeInShelterDays.loc[1], 3)
-})
-
-adoption_rates_TimeInShelterDays.plot(kind = 'bar')
-plt.title("Adoption Rate based on Time in Shelter")
-plt.xticks(rotation=0)
-#df.plot(x = 'AdoptionLikelihood', y='TimeInShelterDays', kind='bar')
-plt.show()
-
-      ````
+# Boxplot for distributions
+plt.figure(figsize=(8, 6))
+sns.boxplot(
+    x='AdoptionLikelihood',
+    y='TimeInShelterDays',
+    data=df,
+    palette=['lightcoral', 'lightseagreen']
+)
+plt.title("Distribution of Shelter Stay Durations\nby Adoption Likelihood")
+plt.xlabel("Adoption Likelihood (0 = Unlikely, 1 = Likely)")
+plt.ylabel("Time in Shelter (Days)")
+plt.xticks([0, 1], ['Unlikely Adopted', 'Likely Adopted'])
+plt.show()````
